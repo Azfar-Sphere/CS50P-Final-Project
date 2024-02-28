@@ -2,10 +2,9 @@ class Stock():
 
     money = 10000
 
-    def __init__(self, name: str, quantity: int):
+    def __init__(self, name: str):
         self._name = name
         self._quantity = 0
-        self.quantity("buy", quantity)
 
     @property
     def name(self):
@@ -15,15 +14,11 @@ class Stock():
     def quantity(self):
         return self._quantity
 
-    @quantity.setter
-    def quantity(self, type: str, quantity: int):
-        type = type.lower()
+    def buy(self, quantity: int):
+        self._quantity += quantity
 
-        if type != "buy" and type != "sell":
-            print("Error, expected buy or sell")
-
-        if type == "buy":
-            self._quantity += quantity
+    def sell(self, quantity: int):
+        self._quantity -= quantity
 
     def __str__(self):
         return f"{self._name}, Quantity: {self._quantity}"
@@ -31,7 +26,8 @@ class Stock():
 
 
 def main():
-    APPL = Stock("APPL", 10)
-    print(APPL)
+    AAPL = Stock("AAPL")
+    AAPL.buy(10)
+    print(AAPL)
 if __name__ == "__main__":
     main()
