@@ -26,6 +26,9 @@ class Habit():
 
 
 def main():
+    create_gui()
+
+def create_gui() -> None:
     gui = tkinter.Tk()
     gui.geometry("800x600")
     gui.title("Habit Tracker")
