@@ -30,9 +30,12 @@ def main():
 
 def create_gui() -> None:
     gui = tkinter.Tk()
-    gui.geometry("800x600")
     gui.title("Habit Tracker")
-    print("creation done")
+    gui.geometry("800x600")
+
+    label = tkinter.Label(gui, text="Habit Tracker", font=("Arial", 18))
+    label.pack()
+
     gui.mainloop()
 
 if __name__ == "__main__":
