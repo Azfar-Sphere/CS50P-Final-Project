@@ -20,6 +20,9 @@ class Habit():
     def add_note(self, note: str) -> None:
         self.notes.append(note)
 
+
+
+
 def main():
 
 if __name__ == "__main__":
