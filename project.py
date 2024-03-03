@@ -1,3 +1,5 @@
+import tkinter
+
 from datetime import datetime
 
 class Habit():
@@ -24,6 +26,8 @@ class Habit():
 
 
 def main():
+    gui = tkinter.Tk()
+    gui.title("Habit Tracker")
 
 if __name__ == "__main__":
     main()
