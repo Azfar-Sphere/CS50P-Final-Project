@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Habit():
 
-    def __init__(self, name, frequency, start_date=None) -> None:
+    def __init__(self, name: str, frequency: str, start_date=None) -> None:
         self.name = name
         self.frequency = frequency
         self.streak = 0
