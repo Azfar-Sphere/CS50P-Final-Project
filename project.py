@@ -27,7 +27,10 @@ class Habit():
 
 def main():
     gui = tkinter.Tk()
+    gui.geometry("800x600")
     gui.title("Habit Tracker")
+    print("creation done")
+    gui.mainloop()
 
 if __name__ == "__main__":
     main()
