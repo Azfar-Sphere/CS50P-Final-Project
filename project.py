@@ -27,26 +27,26 @@ def main():
 def create_gui() -> None:
     gui = Tk()
     gui.title("Habit Tracker")
-    gui.geometry("800x600")
 
     frame = ttk.Frame(gui, padding="3 3 12 12")
-    frame.grid(column=0, row=0) 
+    frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
 
-    habit_label = ttk.Label(frame, text="Habit Tracker", font=("Arial", 18))
-    habit_label.grid(column=0, row=0, columnspan=2, sticky=(N, W, E, S))
-
     day_label = ttk.Label(frame, text="Day", font=("Arial", 18))
-    day_label.grid(column=0, row=1, columnspan=2)
+    day_label.grid(column=0, row=0, columnspan=2)
 
-    habit2_label = ttk.Label(frame, text="Habit", font=("Arial", 18))
-    habit2_label.grid(column=0, row=2, columnspan=2, sticky=(N, W, E, S))
+    habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18))
+    habit_label.grid(column=0, row=1,)
 
     checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18))
-    checkbox_label.grid(column=1, row=2, columnspan=2)
+    checkbox_label.grid(column=1, row=1)
 
-
+    frame.columnconfigure(0, weight=1)
+    frame.columnconfigure(1, weight=1)
+    frame.rowconfigure(0, weight=1)
+    frame.rowconfigure(1, weight=1)
+    frame.rowconfigure(2, weight=1)
 
     gui.mainloop()
 
