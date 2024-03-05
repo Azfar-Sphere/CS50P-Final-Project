@@ -36,12 +36,15 @@ def create_gui() -> None:
     day_label = ttk.Label(frame, text="Day", font=("Arial", 18))
     day_label.grid(column=0, row=0, columnspan=2)
 
-    habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18))
-    habit_label.grid(column=0, row=1,)
+    habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18), padding=10)
+    habit_label.grid(column=0, row=1)
 
-    checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18))
+    checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18), padding=10)
     checkbox_label.grid(column=1, row=1)
 
+    
+    gui.columnconfigure(0, weight=1)
+    gui.rowconfigure(0, weight=1)
     frame.columnconfigure(0, weight=1)
     frame.columnconfigure(1, weight=1)
     frame.rowconfigure(0, weight=1)
