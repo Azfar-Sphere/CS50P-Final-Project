@@ -1,5 +1,5 @@
-import tkinter
-import customtkinter
+from tkinter import *
+from tkinter import ttk
 
 from datetime import datetime
 
@@ -21,21 +21,25 @@ class Habit():
 
 
 
-
-
 def main():
-    customtkinter.set_appearance_mode("dark")
-    customtkinter.set_default_color_theme("blue")
-    
     create_gui()
 
 def create_gui() -> None:
-    gui = customtkinter.CTk()
+    gui = Tk()
     gui.title("Habit Tracker")
     gui.geometry("800x600")
 
-    label = tkinter.Label(gui, text="Habit Tracker", font=("Arial", 18))
-    label.pack()
+    frame = ttk.Frame(gui, padding="3 3 12 12")
+    frame.grid(column=0, row=0, sticky=(N, W, E, S)) 
+    gui.columnconfigure(0, weight=1)
+    gui.rowconfigure(0, weight=1)
+
+    habit_label = ttk.Label(frame, text="Habit Tracker", font=("Arial", 18))
+    habit_label.grid(column=0, row=0, columnspan=2, sticky=(N, W, E, S))
+
+    day_label = ttk.Label(frame, text="Day", font=("Arial", 18))
+    day_label.grid(column=0, row=1, columnspan=2)
+
 
     gui.mainloop()
 
