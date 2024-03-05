@@ -30,7 +30,7 @@ def create_gui() -> None:
     gui.geometry("800x600")
 
     frame = ttk.Frame(gui, padding="3 3 12 12")
-    frame.grid(column=0, row=0, sticky=(N, W, E, S)) 
+    frame.grid(column=0, row=0) 
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
 
@@ -39,6 +39,13 @@ def create_gui() -> None:
 
     day_label = ttk.Label(frame, text="Day", font=("Arial", 18))
     day_label.grid(column=0, row=1, columnspan=2)
+
+    habit2_label = ttk.Label(frame, text="Habit", font=("Arial", 18))
+    habit2_label.grid(column=0, row=2, columnspan=2, sticky=(N, W, E, S))
+
+    checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18))
+    checkbox_label.grid(column=1, row=2, columnspan=2)
+
 
 
     gui.mainloop()
