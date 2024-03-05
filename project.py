@@ -5,13 +5,12 @@ from datetime import datetime
 
 class Habit():
 
-    def __init__(self, name: str, frequency: str, start_date=None) -> None:
+    def __init__(self, name: str, days: list, start_date=None) -> None:
         self.name = name
-        self.frequency = frequency
+        self.days = days
         self.streak = 0
         self.start_date = start_date or datetime.date.today()
         self.completed_today = False
-        self.notes = []
 
     def mark_completed(self) -> None:
         self.compeleted_today = True
@@ -20,8 +19,6 @@ class Habit():
     def mark_uncompleted(self) -> None:
         self.compeleted_today = False
 
-    def add_note(self, note: str) -> None:
-        self.notes.append(note)
 
 
 
