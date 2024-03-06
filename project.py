@@ -46,6 +46,26 @@ def create_gui() -> None:
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
     button.grid(column=0, row=3, columnspan=2)
     
+
+    global habit_name
+    habit_name = StringVar()
+
+    label1 = ttk.Label(frame, text="Name", padding=10)
+    label1.grid(column=0, row=4, columnspan=2)
+    habit_entry = ttk.Entry(frame, textvariable=habit_name)
+    habit_entry.grid(column=0, row=5, columnspan=2)
+
+    global days_list
+    days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    daysvar = StringVar(value=days_list)
+
+    label2 = ttk.Label(frame, text="Days", padding=10)
+    label2.grid(column=0, row=6, columnspan=2)
+    
+    global days_listbox
+    days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
+    days_listbox.grid(column=0, row=7, columnspan=2)
+
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
     frame.columnconfigure(0, weight=1)
@@ -53,27 +73,6 @@ def create_gui() -> None:
     frame.rowconfigure(0, weight=1)
     frame.rowconfigure(1, weight=1)
     frame.rowconfigure(2, weight=1)
-
-    
-    global habit_name
-    habit_name = StringVar()
-    global habit_days
-    habit_days = StringVar()
-
-
-    label1 = ttk.Label(frame, text="Name", padding=10)
-    label1.grid(column=0, row=4, columnspan=2)
-    habit_entry = ttk.Entry(frame, textvariable=habit_name)
-    habit_entry.grid(column=0, row=5, columnspan=2)
-
-    dayslist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    daysvar = StringVar(value=dayslist)
-
-    label2 = ttk.Label(frame, text="Days", padding=10)
-    label2.grid(column=0, row=6, columnspan=2)
-    days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
-    days_listbox.grid(column=0, row=7, columnspan=2)
-
 
     gui.mainloop()
 
@@ -101,7 +100,14 @@ def get_weekday() -> str:
 
 
 def create_habit():
-    print(habit_name.get())
+    try:
+        index_days = days_listbox.curselection()
+        days_selected  = [days_list[index_day] for index_day in index_days]
+        name = habit_name.get()
+        
+    except: 
+        pass
+
 
 
 if __name__ == "__main__":
