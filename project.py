@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
-from datetime import datetime
+from datetime import date
 
 class Habit():
 
@@ -33,7 +33,9 @@ def create_gui() -> None:
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
 
-    day_label = ttk.Label(frame, text="Day", font=("Arial", 18))
+    today = get_weekday()
+    day_label = ttk.Label(frame, text=today, font=("Arial", 18))
+    get_weekday()
     day_label.grid(column=0, row=0, columnspan=2)
 
     habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18), padding=10)
@@ -52,6 +54,28 @@ def create_gui() -> None:
     frame.rowconfigure(2, weight=1)
 
     gui.mainloop()
+
+def get_weekday() -> str:
+    today = (str(date.today()).split("-"))
+    today = [int(integer) for integer in today]
+    today = date(*today).weekday()
+
+    match today:
+        case 0:
+            return "Monday"
+        case 1:
+            return "Tuesday"
+        case 2:
+            return "Wednesday"
+        case 3:
+            return "Thursday"
+        case 5:
+            return "Friday"
+        case 5:
+            return "Saturday"
+        case 6:
+            return "Sunday"
+
 
 if __name__ == "__main__":
     main()
