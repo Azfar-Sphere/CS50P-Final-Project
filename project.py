@@ -1,14 +1,14 @@
 from tkinter import *
 from tkinter import ttk
-from csv import DictWriter
+from csv import DictWriter, DictReader
 from datetime import date
 
 class Habit():
 
-    def __init__(self, name: str, days: list, start_date=None) -> None:
+    def __init__(self, name: str, days: list, streak=0, start_date=None) -> None:
         self.name = name
         self.days = days
-        self.streak = 0
+        self.streak = streak
         self.start_date = start_date or date.today()
         self.completed_today = False
 
@@ -19,11 +19,13 @@ class Habit():
     def mark_uncompleted(self) -> None:
         self.compeleted_today = False
 
-habit_list = []
+habits_objects_list = []
 
 def main():
     create_gui()
-    
+    get_habits()
+
+
 def create_gui() -> None:
     gui = Tk()
     gui.title("Habit Tracker")
@@ -104,7 +106,7 @@ def create_habit():
         index_days = days_listbox.curselection()
         days_selected  = [days_list[index_day] for index_day in index_days]
         days_selected = ",".join(days_selected)
-        
+
         name = habit_name.get()
         habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
         
@@ -116,6 +118,25 @@ def create_habit():
         pass
 
 
+def get_habits():
+    try:
+        habit_details_list = []
+
+        with open("habits.csv") as file:
+
+            fieldnames = ["name", "days", "streak", "start_date"]
+            reader = DictReader(file, fieldnames=fieldnames)
+            next(reader)
+            for row in reader:
+                habit_details_list.append(row)
+        
+        for item in habit_details_list:
+            habits_objects_list.append(Habit(**item))
+
+        print(habits_objects_list)
+
+    except:
+        pass 
 
 if __name__ == "__main__":
     main()
