@@ -23,7 +23,7 @@ habit_list = []
 
 def main():
     create_gui()
-
+    
 def create_gui() -> None:
     gui = Tk()
     gui.title("Habit Tracker")
@@ -43,11 +43,13 @@ def create_gui() -> None:
     checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18), padding=10)
     checkbox_label.grid(column=1, row=1)
 
+    global habit_name
     habit_name = StringVar()
+
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
     habit_entry.grid(column=0, row=2, columnspan=2)
 
-    button = ttk.Button(frame, text="Add Habit", command=create_habit(habit_name))
+    button = ttk.Button(frame, text="Add Habit", command=create_habit)
     button.grid(column=0, row=3, columnspan=2)
     
     gui.columnconfigure(0, weight=1)
@@ -81,8 +83,8 @@ def get_weekday() -> str:
         case 6:
             return "Sunday"
 
-def create_habit(habit_name):
-    print(habit_name)
+def create_habit():
+    print(habit_name.get())
 
 
 if __name__ == "__main__":
