@@ -43,7 +43,7 @@ def create_gui() -> None:
     checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18), padding=10)
     checkbox_label.grid(column=1, row=1)
 
-    button = ttk.Button(frame, text="Add Habit", command=add_habit_gui)
+    button = ttk.Button(frame, text="Add Habit", command=create_habit)
     button.grid(column=0, row=3, columnspan=2)
     
     gui.columnconfigure(0, weight=1)
@@ -53,6 +53,27 @@ def create_gui() -> None:
     frame.rowconfigure(0, weight=1)
     frame.rowconfigure(1, weight=1)
     frame.rowconfigure(2, weight=1)
+
+    
+    global habit_name
+    habit_name = StringVar()
+    global habit_days
+    habit_days = StringVar()
+
+
+    label1 = ttk.Label(frame, text="Name", padding=10)
+    label1.grid(column=0, row=4, columnspan=2)
+    habit_entry = ttk.Entry(frame, textvariable=habit_name)
+    habit_entry.grid(column=0, row=5, columnspan=2)
+
+    dayslist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    daysvar = StringVar(value=dayslist)
+
+    label2 = ttk.Label(frame, text="Days", padding=10)
+    label2.grid(column=0, row=6, columnspan=2)
+    days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
+    days_listbox.grid(column=0, row=7, columnspan=2)
+
 
     gui.mainloop()
 
@@ -76,36 +97,6 @@ def get_weekday() -> str:
             return "Saturday"
         case 6:
             return "Sunday"
-
-
-def add_habit_gui() -> None:
-    habit_gui = Tk()
-    habit_gui.title("Add Habit")
-
-    frame = ttk.Frame(habit_gui, padding="3 3 12 12")
-    frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
-    habit_gui.columnconfigure(0, weight=1) 
-    habit_gui.rowconfigure(0, weight=1)
-
-    global habit_name
-    habit_name = StringVar()
-    global habit_days
-    habit_name = StringVar()
-
-
-    label1 = ttk.Label(frame, text="Name", padding=10)
-    label1.grid(column=0, row=0, columnspan=2)
-    habit_entry = ttk.Entry(frame, textvariable=habit_name)
-    habit_entry.grid(column=0, row=1, columnspan=2)
-
-    
-    dayslist = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    daysvar = StringVar(value=dayslist)
-    
-    label2 = ttk.Label(frame, text="Days", padding=10)
-    label2.grid(column=0, row=2, columnspan=2)
-    days_list = Listbox(frame, listvariable=daysvar, height=7)
-    days_list.grid(column=0, row=3, columnspan=2)
 
 
 
