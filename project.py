@@ -9,7 +9,7 @@ class Habit():
         self.name = name
         self.days = days
         self.streak = 0
-        self.start_date = start_date or datetime.date.today()
+        self.start_date = start_date or date.today()
         self.completed_today = False
 
     def mark_completed(self) -> None:
@@ -19,7 +19,7 @@ class Habit():
     def mark_uncompleted(self) -> None:
         self.compeleted_today = False
 
-
+habit_list = []
 
 def main():
     create_gui()
@@ -35,7 +35,6 @@ def create_gui() -> None:
 
     today = get_weekday()
     day_label = ttk.Label(frame, text=today, font=("Arial", 18))
-    get_weekday()
     day_label.grid(column=0, row=0, columnspan=2)
 
     habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18), padding=10)
@@ -69,13 +68,16 @@ def get_weekday() -> str:
             return "Wednesday"
         case 3:
             return "Thursday"
-        case 5:
+        case 4:
             return "Friday"
         case 5:
             return "Saturday"
         case 6:
             return "Sunday"
 
+def create_habit():
+    
+    new_habit = Habit()
 
 if __name__ == "__main__":
     main()
