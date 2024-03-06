@@ -1,6 +1,6 @@
 from tkinter import *
 from tkinter import ttk
-
+from csv import DictWriter
 from datetime import date
 
 class Habit():
@@ -103,8 +103,15 @@ def create_habit():
     try:
         index_days = days_listbox.curselection()
         days_selected  = [days_list[index_day] for index_day in index_days]
-        name = habit_name.get()
+        days_selected = ",".join(days_selected)
         
+        name = habit_name.get()
+        habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
+        
+        with open("habits.csv", "a") as file:
+            fieldnames = ["name", "days", "streak", "start_date"]
+            writer = DictWriter(file, fieldnames=fieldnames)
+            writer.writerow(habit)
     except: 
         pass
 
