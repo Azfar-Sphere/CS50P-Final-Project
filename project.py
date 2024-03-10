@@ -51,6 +51,9 @@ def create_gui() -> None:
         object_name = habit_object.name
         habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12), padding=10)
         habit_name_label.grid(column=0, row=i+2)
+
+        checkbox = ttk.Checkbutton(frame)
+        checkbox.grid(column=1, row=i+2)
         z += 1
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
@@ -70,11 +73,11 @@ def create_gui() -> None:
     daysvar = StringVar(value=days_list)
 
     label2 = ttk.Label(frame, text="Days", padding=10)
-    label2.grid(column=0, row=6, columnspan=2)
+    label2.grid(column=0, row=z+3, columnspan=2)
     
     global days_listbox
     days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
-    days_listbox.grid(column=0, row=7, columnspan=2)
+    days_listbox.grid(column=0, row=z+4, columnspan=2)
 
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
@@ -124,6 +127,8 @@ def create_habit() -> None:
             writer.writerow(habit)
     except: 
         pass
+    
+    get_habits()
 
 
 def get_habits() -> None:
