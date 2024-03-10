@@ -20,7 +20,7 @@ class Habit():
         self.compeleted_today = False
 
 habits_objects_list = []
-
+gui = 0
 def main():
     get_habits()
     create_gui()
@@ -30,62 +30,51 @@ def create_gui() -> None:
     gui = Tk()
     gui.title("Habit Tracker")
 
-    frame = ttk.Frame(gui, padding="3 3 12 12")
+    frame = ttk.Frame(gui, padding="20")
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
 
     today = get_weekday()
     day_label = ttk.Label(frame, text=today, font=("Arial", 18))
-    day_label.grid(column=0, row=0, columnspan=2)
+    day_label.grid(column=0, row=0, columnspan=2, pady=10)
 
-    habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18), padding=10)
-    habit_label.grid(column=0, row=1)
+    habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18))
+    habit_label.grid(column=0, row=1, padx=10)
 
-    checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18), padding=10)
-    checkbox_label.grid(column=1, row=1)
-
-    z = 2
+    checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18))
+    checkbox_label.grid(column=1, row=1, padx=10)
 
     for i, habit_object in enumerate(habits_objects_list):
         object_name = habit_object.name
-        habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12), padding=10)
-        habit_name_label.grid(column=0, row=i+2)
+        habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12))
+        habit_name_label.grid(column=0, row=i+2, padx=10, pady=5, sticky="w")
 
         checkbox = ttk.Checkbutton(frame)
-        checkbox.grid(column=1, row=i+2)
-        z += 1
+        checkbox.grid(column=1, row=i+2, padx=10, pady=5, sticky="w")
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
-    button.grid(column=0, row=z, columnspan=2)
-    
+    button.grid(column=0, row=len(habits_objects_list)+2, columnspan=2, pady=10)
 
     global habit_name
     habit_name = StringVar()
 
     label1 = ttk.Label(frame, text="Name", padding=10)
-    label1.grid(column=0, row=z+1, columnspan=2)
+    label1.grid(column=0, row=len(habits_objects_list)+3, columnspan=2)
+
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
-    habit_entry.grid(column=0, row=z+2, columnspan=2)
+    habit_entry.grid(column=0, row=len(habits_objects_list)+4, columnspan=2, pady=5)
 
     global days_list
     days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     daysvar = StringVar(value=days_list)
 
     label2 = ttk.Label(frame, text="Days", padding=10)
-    label2.grid(column=0, row=z+3, columnspan=2)
-    
+    label2.grid(column=0, row=len(habits_objects_list)+5, columnspan=2)
+
     global days_listbox
     days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
-    days_listbox.grid(column=0, row=z+4, columnspan=2)
-
-    gui.columnconfigure(0, weight=1)
-    gui.rowconfigure(0, weight=1)
-    frame.columnconfigure(0, weight=1)
-    frame.columnconfigure(1, weight=1)
-    frame.rowconfigure(0, weight=1)
-    frame.rowconfigure(1, weight=1)
-    frame.rowconfigure(2, weight=1)
+    days_listbox.grid(column=0, row=len(habits_objects_list)+6, columnspan=2, pady=5)
 
     gui.mainloop()
 
@@ -149,6 +138,9 @@ def get_habits() -> None:
 
     except:
         pass 
+
+    if gui:
+        gui.update()
 
 if __name__ == "__main__":
     main()
