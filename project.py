@@ -48,10 +48,10 @@ def create_gui() -> None:
     for i, habit_object in enumerate(habits_objects_list):
         object_name = habit_object.name
         habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12))
-        habit_name_label.grid(column=0, row=i+2, padx=10, pady=5, sticky="w")
+        habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
         checkbox = ttk.Checkbutton(frame)
-        checkbox.grid(column=1, row=i+2, padx=10, pady=5, sticky="w")
+        checkbox.grid(column=1, row=i+2, padx=10, pady=5)
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
     button.grid(column=0, row=len(habits_objects_list)+2, columnspan=2, pady=10)
@@ -75,6 +75,13 @@ def create_gui() -> None:
     global days_listbox
     days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
     days_listbox.grid(column=0, row=len(habits_objects_list)+6, columnspan=2, pady=5)
+
+    for i in range(len(habits_objects_list) + 7):
+        frame.rowconfigure(i, weight=1)
+
+    for i in range(2):
+        frame.columnconfigure(i, weight=1)
+
 
     gui.mainloop()
 
