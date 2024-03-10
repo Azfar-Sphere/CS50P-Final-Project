@@ -22,8 +22,8 @@ class Habit():
 habits_objects_list = []
 
 def main():
-    create_gui()
     get_habits()
+    create_gui()
 
 
 def create_gui() -> None:
@@ -45,17 +45,25 @@ def create_gui() -> None:
     checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18), padding=10)
     checkbox_label.grid(column=1, row=1)
 
+    z = 2
+
+    for i, habit_object in enumerate(habits_objects_list):
+        object_name = habit_object.name
+        habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12), padding=10)
+        habit_name_label.grid(column=0, row=i+2)
+        z += 1
+
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
-    button.grid(column=0, row=3, columnspan=2)
+    button.grid(column=0, row=z, columnspan=2)
     
 
     global habit_name
     habit_name = StringVar()
 
     label1 = ttk.Label(frame, text="Name", padding=10)
-    label1.grid(column=0, row=4, columnspan=2)
+    label1.grid(column=0, row=z+1, columnspan=2)
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
-    habit_entry.grid(column=0, row=5, columnspan=2)
+    habit_entry.grid(column=0, row=z+2, columnspan=2)
 
     global days_list
     days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
