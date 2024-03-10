@@ -101,7 +101,7 @@ def get_weekday() -> str:
 
 
 
-def create_habit():
+def create_habit() -> None:
     try:
         index_days = days_listbox.curselection()
         days_selected  = [days_list[index_day] for index_day in index_days]
@@ -118,7 +118,7 @@ def create_habit():
         pass
 
 
-def get_habits():
+def get_habits() -> None:
     try:
         habit_details_list = []
 
@@ -133,7 +133,6 @@ def get_habits():
         for item in habit_details_list:
             habits_objects_list.append(Habit(**item))
 
-        print(habits_objects_list)
 
     except:
         pass 
