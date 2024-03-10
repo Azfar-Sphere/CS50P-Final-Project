@@ -16,11 +16,13 @@ class Habit():
         self.compeleted_today = True
         self.streak += 1
 
+
     def mark_uncompleted(self) -> None:
         self.compeleted_today = False
 
 habits_objects_list = []
 gui = 0
+
 def main():
     get_habits()
     create_gui()
@@ -50,7 +52,7 @@ def create_gui() -> None:
         habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12))
         habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
-        checkbox = ttk.Checkbutton(frame)
+        checkbox = ttk.Checkbutton(frame, command=habit_object.mark_completed)
         checkbox.grid(column=1, row=i+2, padx=10, pady=5)
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
@@ -148,6 +150,16 @@ def get_habits() -> None:
 
     if gui:
         gui.update()
+
+
+def update_habits(habit: Habit) -> None:
+
+    with open("habits.csv", "r") as file:
+        reader = DictWriter(file)
+        rows = list(reader)
+
+
+
 
 if __name__ == "__main__":
     main()
