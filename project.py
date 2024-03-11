@@ -63,17 +63,24 @@ def create_gui() -> None:
     checkbox_label = ttk.Label(frame, text="Check", style='TLabel')
     checkbox_label.grid(column=1, row=1, padx=10)
 
+    streak_label = ttk.Label(frame, text="Streak", style='TLabel')
+    streak_label.grid(column=2, row=1, padx=10)
+
     z = 2
 
     for i, object in enumerate(habits_objects_list):
 
         if today in object.days:
             object_name = object.name
+            object_streak = object.streak
             habit_name_label = ttk.Label(frame, text=object_name, style='TLabel')
             habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
             checkbox = ttk.Checkbutton(frame, onvalue=1, command=object.mark_completed, style='TCheckbutton')
             checkbox.grid(column=1, row=i+2, padx=10, pady=5)
+
+            habit_name_label = ttk.Label(frame, text=object_streak, style='TLabel')
+            habit_name_label.grid(column=2, row=i+2, padx=10, pady=5)
 
             z += 1
 
