@@ -1,6 +1,5 @@
-
 name,days,streak,start_date
 Running,"Sunday,Tuesday",0,2024-03-11
-Eating,"Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",0,2024-03-11
-Working Out,Monday,0,2024-03-11
+Eating,"Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday",7,2024-03-11
+Working Out,Monday,7,2024-03-11
 Cycling,"Wednesday,Thursday,Friday",0,2024-03-11

@@ -6,6 +6,12 @@ import pandas as pd
 
 class Habit():
 
+    @classmethod
+    def update_habit(cls, object) -> None:
+        df = pd.read_csv("habits.csv")
+        df.loc[df["name"] == object.name, "streak"] = object.streak
+        df.to_csv("habits.csv", index=False)
+
     def __init__(self, name: str, days: list, streak=0, start_date=None) -> None:
         self.name = name
         self.days = days
@@ -15,11 +21,18 @@ class Habit():
 
     def mark_completed(self) -> None:
         self.compeleted_today = True
+        self.streak = int(self.streak)
         self.streak += 1
-
+        Habit.update_habit(self)
 
     def mark_uncompleted(self) -> None:
         self.compeleted_today = False
+
+
+
+
+
+
 
 habits_objects_list = []
 gui = 0
@@ -158,15 +171,6 @@ def get_habits() -> None:
 
     if gui:
         gui.update()
-
-
-def update_habits(habit: Habit) -> None:
-
-    with open("habits.csv", "r") as file:
-        reader = DictWriter(file)
-        rows = list(reader)
-
-
 
 
 if __name__ == "__main__":
