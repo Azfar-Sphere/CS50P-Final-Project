@@ -30,10 +30,6 @@ class Habit():
 
 
 
-
-
-
-
 habits_objects_list = []
 gui = 0
 
@@ -46,65 +42,65 @@ def create_gui() -> None:
     gui = Tk()
     gui.title("Habit Tracker")
 
-    frame = ttk.Frame(gui, padding="20")
+    style = ttk.Style()
+    style.configure('TFrame', background='#f0f0f0')
+    style.configure('TLabel', background='#f0f0f0', font=('Arial', 12))
+    style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
+    style.configure('TCheckbutton', background='#f0f0f0', font=('Arial', 12))
+
+    frame = ttk.Frame(gui, padding="20", style='TFrame')
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
     gui.columnconfigure(0, weight=1)
     gui.rowconfigure(0, weight=1)
 
     today = get_weekday()
-    day_label = ttk.Label(frame, text=today, font=("Arial", 18))
+    day_label = ttk.Label(frame, text=today, style='TLabel')
     day_label.grid(column=0, row=0, columnspan=2, pady=10)
 
-    habit_label = ttk.Label(frame, text="Habit", font=("Arial", 18))
+    habit_label = ttk.Label(frame, text="Habit", style='TLabel')
     habit_label.grid(column=0, row=1, padx=10)
 
-    checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18))
+    checkbox_label = ttk.Label(frame, text="Check", style='TLabel')
     checkbox_label.grid(column=1, row=1, padx=10)
 
     z = 2
 
-    for i, habit_object in enumerate(habits_objects_list):
-
-        if today in habit_object.days:
-
-            object_name = habit_object.name
-            habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12))
+    for i, object in enumerate(habits_objects_list):  
+        if today in object.days:
+            object_name = object.name
+            habit_name_label = ttk.Label(frame, text=object_name, style='TLabel')
             habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
-            checkbox = ttk.Checkbutton(frame, command=habit_object.mark_completed)
+            checkbox = ttk.Checkbutton(frame, onvalue=1, command=object.mark_completed, style='TCheckbutton')
             checkbox.grid(column=1, row=i+2, padx=10, pady=5)
 
             z += 1
 
-    button = ttk.Button(frame, text="Add Habit", command=create_habit)
+    button = ttk.Button(frame, text="Add Habit", command=create_habit, style='TButton')
     button.grid(column=0, row=z+1, columnspan=2, pady=10)
 
-    global habit_name
     habit_name = StringVar()
 
-    label1 = ttk.Label(frame, text="Name", padding=10)
+    label1 = ttk.Label(frame, text="Name", padding=10, style='TLabel')
     label1.grid(column=0, row=z+2, columnspan=2)
 
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
     habit_entry.grid(column=0, row=z+3, columnspan=2, pady=5)
 
-    global days_list
     days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     daysvar = StringVar(value=days_list)
 
-    label2 = ttk.Label(frame, text="Days", padding=10)
+    label2 = ttk.Label(frame, text="Days", padding=10, style='TLabel')
     label2.grid(column=0, row=z+4, columnspan=2)
 
-    global days_listbox
     days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
     days_listbox.grid(column=0, row=z+5, columnspan=2, pady=5)
 
-    for i in range(len(habits_objects_list) + 7):
+    for i in range(len(days_list) + 7):
         frame.rowconfigure(i, weight=1)
 
     for i in range(2):
         frame.columnconfigure(i, weight=1)
-
 
     gui.mainloop()
 
