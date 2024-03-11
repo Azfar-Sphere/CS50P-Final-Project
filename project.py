@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from csv import DictWriter, DictReader
 from datetime import date
+import pandas as pd
 
 class Habit():
 
@@ -47,36 +48,43 @@ def create_gui() -> None:
     checkbox_label = ttk.Label(frame, text="Check", font=("Arial", 18))
     checkbox_label.grid(column=1, row=1, padx=10)
 
-    for i, habit_object in enumerate(habits_objects_list):
-        object_name = habit_object.name
-        habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12))
-        habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
+    z = 2
 
-        checkbox = ttk.Checkbutton(frame, command=habit_object.mark_completed)
-        checkbox.grid(column=1, row=i+2, padx=10, pady=5)
+    for i, habit_object in enumerate(habits_objects_list):
+
+        if today in habit_object.days:
+
+            object_name = habit_object.name
+            habit_name_label = ttk.Label(frame, text=object_name, font=("Arial", 12))
+            habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
+
+            checkbox = ttk.Checkbutton(frame, command=habit_object.mark_completed)
+            checkbox.grid(column=1, row=i+2, padx=10, pady=5)
+
+            z += 1
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit)
-    button.grid(column=0, row=len(habits_objects_list)+2, columnspan=2, pady=10)
+    button.grid(column=0, row=z+1, columnspan=2, pady=10)
 
     global habit_name
     habit_name = StringVar()
 
     label1 = ttk.Label(frame, text="Name", padding=10)
-    label1.grid(column=0, row=len(habits_objects_list)+3, columnspan=2)
+    label1.grid(column=0, row=z+2, columnspan=2)
 
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
-    habit_entry.grid(column=0, row=len(habits_objects_list)+4, columnspan=2, pady=5)
+    habit_entry.grid(column=0, row=z+3, columnspan=2, pady=5)
 
     global days_list
     days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     daysvar = StringVar(value=days_list)
 
     label2 = ttk.Label(frame, text="Days", padding=10)
-    label2.grid(column=0, row=len(habits_objects_list)+5, columnspan=2)
+    label2.grid(column=0, row=z+4, columnspan=2)
 
     global days_listbox
     days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
-    days_listbox.grid(column=0, row=len(habits_objects_list)+6, columnspan=2, pady=5)
+    days_listbox.grid(column=0, row=z+5, columnspan=2, pady=5)
 
     for i in range(len(habits_objects_list) + 7):
         frame.rowconfigure(i, weight=1)
