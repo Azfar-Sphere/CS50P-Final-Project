@@ -64,31 +64,28 @@ def create_gui() -> None:
     checkbox_label = ttk.Label(frame, text="Check", style='TLabel')
     checkbox_label.grid(column=1, row=1, padx=10)
 
-    streak_label = ttk.Label(frame, text="Streak", style='TLabel')
-    streak_label.grid(column=2, row=1, padx=10)
-
     z = 2
 
     for i, object in enumerate(habits_objects_list):
 
         if today in object.days:
             object_name = object.name
-            object_streak = object.streak
+
             habit_name_label = ttk.Label(frame, text=object_name, style='TLabel')
             habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
             checkbox = ttk.Checkbutton(frame, onvalue=1, command=object.mark_completed, style='TCheckbutton')
             checkbox.grid(column=1, row=i+2, padx=10, pady=5)
 
-            habit_name_label = ttk.Label(frame, text=object_streak, style='TLabel')
-            habit_name_label.grid(column=2, row=i+2, padx=10, pady=5)
-
             z += 1
 
     button = ttk.Button(frame, text="Add Habit", command=add_habit_gui, style='TButton')
     button.grid(column=0, row=z+2, columnspan=2, pady=10)
 
-    for i in range(z+2):
+    button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui, style='TButton')
+    button2.grid(column=0, row=z+3, columnspan=2, pady=10)
+
+    for i in range(z+3):
         frame.rowconfigure(i, weight=1)
 
     for i in range(2):
@@ -165,7 +162,7 @@ def add_habit_gui() -> None:
     top = Toplevel(gui)
     top.title("Add Habit")
 
-    frame = ttk.Frame(top, padding="20")
+    frame = ttk.Frame(top, padding="20", style="TFrame")
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
 
     global habit_name
@@ -190,6 +187,37 @@ def add_habit_gui() -> None:
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit, style='TButton')
     button.grid(column=0, row=4, columnspan=2, pady=10)
+
+def habit_details_gui() -> None:
+
+    top = Toplevel(gui)
+    top.title("Add Habit")
+
+    frame = ttk.Frame(top, padding="20", style="TFrame")
+    frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
+
+    label_1 = ttk.Label(frame, text="Habit Name", padding=10, style="TLabel")
+    label_2 = ttk.Label(frame, text="Days", padding=10, style="TLabel")
+    label_3 = ttk.Label(frame, text="Streak", padding=10, style="TLabel")
+    label_4 = ttk.Label(frame, text="Start Date", padding=10, style="TLabel")
+
+    label_1.grid(column=0, row=0)
+    label_2.grid(column=1, row=0)
+    label_3.grid(column=2, row=0)
+    label_4.grid(column=3, row=0)
+
+    for i, habit in enumerate(habits_objects_list):
+        label_name = ttk.Label(frame, text=habit.name, padding=10, style="TLabel")
+        label_days = ttk.Label(frame, text=habit.days, padding=10, style="TLabel")
+        label_streak = ttk.Label(frame, text=habit.streak, padding=10, style="TLabel")
+        label_start = ttk.Label(frame, text=habit.start_date, padding=10, style="TLabel")
+
+        label_name.grid(column=0, row=i+1)
+        label_days.grid(column=1, row=i+1)
+        label_streak.grid(column=2, row=i+1)
+        label_start.grid(column=3, row=i+1)
+
+
 
 
 if __name__ == "__main__":
