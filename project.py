@@ -8,6 +8,8 @@ class Habit():
 
     @classmethod
     def update_habit(cls, object) -> None:
+        object.streak = int(object.streak)
+        object.streak += 1
         df = pd.read_csv("habits.csv")
         df.loc[df["name"] == object.name, "streak"] = object.streak
         df.to_csv("habits.csv", index=False)
@@ -17,22 +19,18 @@ class Habit():
         self.days = days
         self.streak = streak
         self.start_date = start_date or date.today()
-        self.completed_today = False
+        self.completed_today = BooleanVar(value=False)
 
-    def mark_completed(self) -> None:
-        self.compeleted_today = True
-        self.streak = int(self.streak)
-        self.streak += 1
-        Habit.update_habit(self)
-
-    def mark_uncompleted(self) -> None:
-        self.compeleted_today = False
+    def check(self):
+        if self.completed_today.get():
+            Habit.update_habit(self)
 
 
 
 habits_objects_list = []
 gui = Tk()
 gui.title("Habit Tracker")
+gui.minsize(800, 800)
 
 style = ttk.Style()
 style.configure('TFrame', background='#f0f0f0')
@@ -47,7 +45,6 @@ def main():
 
 
 def create_gui() -> None:
-
 
     frame = ttk.Frame(gui, padding="20", style='TFrame')
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
@@ -74,7 +71,7 @@ def create_gui() -> None:
             habit_name_label = ttk.Label(frame, text=object_name, style='TLabel')
             habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
-            checkbox = ttk.Checkbutton(frame, onvalue=1, command=object.mark_completed, style='TCheckbutton')
+            checkbox = ttk.Checkbutton(frame, onvalue=1, offvalue=0, variable=object.completed_today, command=object.check, style='TCheckbutton')
             checkbox.grid(column=1, row=i+2, padx=10, pady=5)
 
             z += 1
@@ -82,8 +79,9 @@ def create_gui() -> None:
     button = ttk.Button(frame, text="Add Habit", command=add_habit_gui, style='TButton')
     button.grid(column=0, row=z+2, columnspan=2, pady=10)
 
-    button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui, style='TButton')
+    button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui)
     button2.grid(column=0, row=z+3, columnspan=2, pady=10)
+
 
     for i in range(z+3):
         frame.rowconfigure(i, weight=1)
