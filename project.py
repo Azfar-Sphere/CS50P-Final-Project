@@ -31,7 +31,10 @@ class Habit():
 
 
 habits_objects_list = []
-gui = 0
+gui = Tk()
+gui.title("Habit Tracker")
+
+
 
 def main():
     get_habits()
@@ -39,8 +42,7 @@ def main():
 
 
 def create_gui() -> None:
-    gui = Tk()
-    gui.title("Habit Tracker")
+
 
     style = ttk.Style()
     style.configure('TFrame', background='#f0f0f0')
@@ -84,30 +86,10 @@ def create_gui() -> None:
 
             z += 1
 
-    button = ttk.Button(frame, text="Add Habit", command=create_habit, style='TButton')
+    button = ttk.Button(frame, text="Add Habit", command=add_habit_gui, style='TButton')
     button.grid(column=0, row=z+2, columnspan=2, pady=10)
 
-    global habit_name
-    habit_name = StringVar()
-
-    label1 = ttk.Label(frame, text="Name", padding=10, style='TLabel')
-    label1.grid(column=0, row=z+3, columnspan=2)
-
-    habit_entry = ttk.Entry(frame, textvariable=habit_name)
-    habit_entry.grid(column=0, row=z+4, columnspan=2, pady=5)
-
-    global days_list
-    days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    daysvar = StringVar(value=days_list)
-
-    label2 = ttk.Label(frame, text="Days", padding=10, style='TLabel')
-    label2.grid(column=0, row=z+5, columnspan=2)
-
-    global days_listbox
-    days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
-    days_listbox.grid(column=0, row=z+6, columnspan=2, pady=5)
-
-    for i in range(len(days_list) + 7):
+    for i in range(z+2):
         frame.rowconfigure(i, weight=1)
 
     for i in range(2):
@@ -178,6 +160,35 @@ def get_habits() -> None:
 
     if gui:
         gui.update()
+
+def add_habit_gui() -> None:
+
+    top = Toplevel(gui)
+    top.title("Add Habit")
+
+    frame = ttk.Frame(top, padding="20")
+    frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
+
+    global habit_name
+    habit_name = StringVar()
+
+    label1 = ttk.Label(frame, text="Name", padding=10)
+    label1.grid(column=0, row=0, columnspan=2)
+
+    habit_entry = ttk.Entry(frame, textvariable=habit_name)
+    habit_entry.grid(column=0, row=1, columnspan=2, pady=5)
+
+    global days_list
+    days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    daysvar = StringVar(value=days_list)
+
+    label2 = ttk.Label(frame, text="Days", padding=10)
+    label2.grid(column=0, row=2, columnspan=2)
+
+    global days_listbox
+    days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
+    days_listbox.grid(column=0, row=3, columnspan=2, pady=5)
+
 
 
 if __name__ == "__main__":
