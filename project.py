@@ -8,8 +8,7 @@ class Habit():
 
     @classmethod
     def update_habit(cls, object) -> None:
-        object.streak = int(object.streak)
-        object.streak += 1
+
         df = pd.read_csv("habits.csv")
         df.loc[df["name"] == object.name, "streak"] = object.streak
         df.to_csv("habits.csv", index=False)
@@ -22,9 +21,15 @@ class Habit():
         self.completed_today = BooleanVar(value=False)
 
     def check(self):
-        if self.completed_today.get():
+        if self.completed_today.get() == 1:
+            self.streak = int(self.streak)
+            self.streak += 1
             Habit.update_habit(self)
 
+        elif self.completed_today.get() == 0:
+            self.streak = int(self.streak)
+            self.streak -= 1
+            Habit.update_habit(self)
 
 
 habits_objects_list = []
