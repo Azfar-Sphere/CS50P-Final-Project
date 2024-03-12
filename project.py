@@ -165,6 +165,9 @@ def add_habit_gui() -> None:
     frame = ttk.Frame(top, padding="20", style="TFrame")
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
 
+    top.columnconfigure(0, weight=1)
+    top.rowconfigure(0, weight=1)
+
     global habit_name
     habit_name = StringVar()
 
@@ -188,6 +191,13 @@ def add_habit_gui() -> None:
     button = ttk.Button(frame, text="Add Habit", command=create_habit, style='TButton')
     button.grid(column=0, row=4, columnspan=2, pady=10)
 
+    for i in range(4):
+        frame.rowconfigure(i, weight=1)
+
+    for i in range(1):
+        frame.columnconfigure(i, weight=1)
+
+
 def habit_details_gui() -> None:
 
     top = Toplevel(gui)
@@ -195,6 +205,9 @@ def habit_details_gui() -> None:
 
     frame = ttk.Frame(top, padding="20", style="TFrame")
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
+
+    top.columnconfigure(0, weight=1)
+    top.rowconfigure(0, weight=1)
 
     label_1 = ttk.Label(frame, text="Habit Name", padding=10, style="TLabel")
     label_2 = ttk.Label(frame, text="Days", padding=10, style="TLabel")
@@ -205,6 +218,8 @@ def habit_details_gui() -> None:
     label_2.grid(column=1, row=0)
     label_3.grid(column=2, row=0)
     label_4.grid(column=3, row=0)
+
+    z = 1
 
     for i, habit in enumerate(habits_objects_list):
         label_name = ttk.Label(frame, text=habit.name, padding=10, style="TLabel")
@@ -217,6 +232,13 @@ def habit_details_gui() -> None:
         label_streak.grid(column=2, row=i+1)
         label_start.grid(column=3, row=i+1)
 
+        z += 1
+
+    for i in range(z):
+        frame.rowconfigure(i, weight=1)
+
+    for i in range(4):
+        frame.columnconfigure(i, weight=1)
 
 
 
