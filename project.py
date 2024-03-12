@@ -34,6 +34,11 @@ habits_objects_list = []
 gui = Tk()
 gui.title("Habit Tracker")
 
+style = ttk.Style()
+style.configure('TFrame', background='#f0f0f0')
+style.configure('TLabel', background='#f0f0f0', font=('Arial', 12))
+style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
+style.configure('TCheckbutton', background='#f0f0f0', font=('Arial', 12))
 
 
 def main():
@@ -43,12 +48,6 @@ def main():
 
 def create_gui() -> None:
 
-
-    style = ttk.Style()
-    style.configure('TFrame', background='#f0f0f0')
-    style.configure('TLabel', background='#f0f0f0', font=('Arial', 12))
-    style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
-    style.configure('TCheckbutton', background='#f0f0f0', font=('Arial', 12))
 
     frame = ttk.Frame(gui, padding="20", style='TFrame')
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
@@ -172,7 +171,7 @@ def add_habit_gui() -> None:
     global habit_name
     habit_name = StringVar()
 
-    label1 = ttk.Label(frame, text="Name", padding=10)
+    label1 = ttk.Label(frame, text="Name", padding=10, style='TLabel')
     label1.grid(column=0, row=0, columnspan=2)
 
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
@@ -182,13 +181,15 @@ def add_habit_gui() -> None:
     days_list = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     daysvar = StringVar(value=days_list)
 
-    label2 = ttk.Label(frame, text="Days", padding=10)
+    label2 = ttk.Label(frame, text="Days", padding=10, style='TLabel')
     label2.grid(column=0, row=2, columnspan=2)
 
     global days_listbox
     days_listbox = Listbox(frame, listvariable=daysvar, height=7, selectmode="extended")
     days_listbox.grid(column=0, row=3, columnspan=2, pady=5)
 
+    button = ttk.Button(frame, text="Add Habit", command=create_habit, style='TButton')
+    button.grid(column=0, row=4, columnspan=2, pady=10)
 
 
 if __name__ == "__main__":
