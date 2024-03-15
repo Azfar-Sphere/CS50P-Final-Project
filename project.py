@@ -64,17 +64,17 @@ def create_gui() -> None:
 
     # Today's label
     today = get_weekday()
-    # day_label = CTkLabel(master=frame, text=today, font=("Arial", 30))
-    # day_label.grid(column=0, row=0, columnspan=2, padx=10, pady=10)
+    day_label = CTkLabel(master=frame, text=today, font=("Arial", 30))
+    day_label.grid(column=0, row=1, columnspan=2, padx=10, pady=10)
 
     # Habit and Checkbox labels
     habit_label = CTkLabel(master=frame, text="Habit", font=("Arial", 25))
-    habit_label.grid(column=0, row=1, padx=10, pady=5)
+    habit_label.grid(column=0, row=2, padx=10, pady=5)
 
     checkbox_label = CTkLabel(master=frame, text="Check", font=("Arial", 25))
-    checkbox_label.grid(column=1, row=1, padx=10, pady=5)
+    checkbox_label.grid(column=1, row=3, padx=10, pady=5)
 
-    row_counter = 2  # Track the current row for habit entries
+    row_counter = 3  # Track the current row for habit entries
 
     # Iterate through habits and display them with checkboxes
     for i, object in enumerate(habits_objects_list):
