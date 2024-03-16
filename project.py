@@ -45,7 +45,7 @@ gui.minsize(800, 800)
 style = ttk.Style()
 color = generate_random_color()
 style.configure('TFrame', background=color)
-style.configure('Day.TLabel', background=color, font=("Courier", 40), foreground="blue")
+style.configure('Day.TLabel', background=color, font=("Courier", 40), foreground=generate_random_color())
 style.configure('TLabel', background=color, font=('Arial', 12))
 style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
 
