@@ -4,6 +4,8 @@ from tkinter import font
 from csv import DictWriter, DictReader
 from datetime import date
 import pandas as pd
+import random
+from colorlist import colors
 
 class Habit():
 
@@ -32,6 +34,8 @@ class Habit():
             self.streak -= 1
             Habit.update_habit(self)
 
+def generate_random_color() -> tuple:
+    return random.choice(colors)
 
 habits_objects_list = []
 gui = Tk()
@@ -64,18 +68,23 @@ def create_gui() -> None:
     day_label.grid(column=0, row=0, columnspan=2, pady=10)
 
 
-    z = 2
+    z = 1
 
     for i, object in enumerate(habits_objects_list):
 
         if today in object.days:
             object_name = object.name
 
-            habit_name_label = ttk.Label(frame, text=object_name, style='TLabel')
-            habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
+            color = generate_random_color()
+            style.configure('Habit.TFrame', background=color)
+            habit_frame = ttk.Frame(frame, style="Habit.TFrame")
+            habit_frame.grid(column=0, columnspan=2, row=z)
 
-            checkbox = ttk.Checkbutton(frame, onvalue=1, offvalue=0, variable=object.completed_today, command=object.check, style='TCheckbutton')
-            checkbox.grid(column=1, row=i+2, padx=10, pady=5)
+            habit_name_label = ttk.Label(habit_frame, text=object_name)
+            habit_name_label.grid(column=0, row=0, padx=20, pady=5)
+
+            checkbox = ttk.Checkbutton(habit_frame, onvalue=1, offvalue=0, variable=object.completed_today, command=object.check)
+            checkbox.grid(column=1, row=0, padx=20, pady=5)
 
             z += 1
 
@@ -240,6 +249,7 @@ def habit_details_gui() -> None:
 
     for i in range(4):
         frame.columnconfigure(i, weight=1)
+
 
 
 
