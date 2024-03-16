@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import font
 from csv import DictWriter, DictReader
 from datetime import date
 import pandas as pd
@@ -38,11 +39,13 @@ gui.title("Habit Tracker")
 gui.minsize(800, 800)
 
 style = ttk.Style()
-style.configure('TFrame', background='#f0f0f0')
+style.configure('TFrame', background='grey')
+style.configure('Day.TLabel', background="grey", font=("Courier", 40), foreground="blue")
 style.configure('TLabel', background='#f0f0f0', font=('Arial', 12))
 style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
 style.configure('TCheckbutton', background='#f0f0f0', font=('Arial', 12))
 
+print(font.names())
 
 def main():
     get_habits()
@@ -57,7 +60,7 @@ def create_gui() -> None:
     gui.rowconfigure(0, weight=1)
 
     today = get_weekday()
-    day_label = ttk.Label(frame, text=today, style='TLabel')
+    day_label = ttk.Label(frame, text=today, style='Day.TLabel')
     day_label.grid(column=0, row=0, columnspan=2, pady=10)
 
     habit_label = ttk.Label(frame, text="Habit", style='TLabel')
