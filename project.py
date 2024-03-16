@@ -89,11 +89,11 @@ def create_gui() -> None:
             z += 1
 
     button = ttk.Button(frame, text="Add Habit", command=add_habit_gui, style='TButton')
-    button.grid(column=0, row=z+2, columnspan=2, pady=10)
+    button.grid(column=0, row=z, pady=10)
 
-    style.configure('Details.TButton', background=generate_random_color(), foreground='#ffffff', font=('Arial', 12))
+    style.configure('Details.TButton', background=generate_random_color(), foreground="black", font=('Arial', 12))
     button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui, style="Details.TButton")
-    button2.grid(column=0, row=z+3, columnspan=2, pady=10)
+    button2.grid(column=1, row=z, pady=5)
 
 
     for i in range(z+3):
@@ -141,16 +141,22 @@ def create_habit() -> None:
             writer = DictWriter(file, fieldnames=fieldnames)
             writer.writerow(habit)
 
-        messagebox.showinfo(message="Habit Added Succesfully")
         habit_entry.delete("0", "end")
         days_listbox.selection_clear("0", "end")
+        messagebox.showinfo(message="Habit Added Succesfully")
+
     except: 
         pass
     
     get_habits()
+    print(habits_objects_list)
+    create_gui()
 
 
 def get_habits() -> None:
+    global habits_objects_list
+    if habits_objects_list:
+        habits_objects_list = []
     try:
         habit_details_list = []
 
@@ -256,8 +262,6 @@ def habit_details_gui() -> None:
 
     for i in range(4):
         frame.columnconfigure(i, weight=1)
-
-
 
 
 if __name__ == "__main__":
