@@ -63,11 +63,6 @@ def create_gui() -> None:
     day_label = ttk.Label(frame, text=today, style='Day.TLabel')
     day_label.grid(column=0, row=0, columnspan=2, pady=10)
 
-    habit_label = ttk.Label(frame, text="Habit", style='TLabel')
-    habit_label.grid(column=0, row=1, padx=10)
-
-    checkbox_label = ttk.Label(frame, text="Check", style='TLabel')
-    checkbox_label.grid(column=1, row=1, padx=10)
 
     z = 2
 
