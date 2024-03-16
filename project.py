@@ -40,6 +40,7 @@ habits_objects_list = []
 gui = Tk()
 gui.title("Habit Tracker")
 gui.minsize(800, 800)
+gui.option_add('*tearOff', FALSE)
 
 style = ttk.Style()
 color = generate_random_color()
@@ -95,6 +96,10 @@ def create_gui() -> None:
     button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui, style="Details.TButton")
     button2.grid(column=1, row=z, pady=5)
 
+    menubar = Menu(gui)
+    gui.config(menu=menubar)
+
+    menubar.add_command(label="Delete Habit", command=delete_habit)
 
     for i in range(z+3):
         frame.rowconfigure(i, weight=1)
@@ -262,6 +267,9 @@ def habit_details_gui() -> None:
 
     for i in range(4):
         frame.columnconfigure(i, weight=1)
+
+def delete_habit():
+    pass
 
 
 if __name__ == "__main__":
