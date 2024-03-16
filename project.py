@@ -99,7 +99,7 @@ def create_gui() -> None:
     menubar = Menu(gui)
     gui.config(menu=menubar)
 
-    menubar.add_command(label="Delete Habit", command=delete_habit)
+    menubar.add_command(label="Delete Habit", command=delete_habit_gui)
 
     for i in range(z+3):
         frame.rowconfigure(i, weight=1)
@@ -268,9 +268,30 @@ def habit_details_gui() -> None:
     for i in range(4):
         frame.columnconfigure(i, weight=1)
 
+def delete_habit_gui():
+    delete_gui = Toplevel(gui)
+    delete_gui.title("Delete Habit")
+
+    frame = ttk.Frame(delete_gui, padding="20", style="TFrame")
+    frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
+
+    label1 = ttk.Label(frame, text="Name of Habit to Delete", padding=10, style='TLabel')
+    label1.grid(column=0, row=0, columnspan=2)
+
+    global delete_name
+    delete_name = StringVar()
+
+    global delete_entry
+    delete_entry = ttk.Entry(frame, textvariable=delete_name)
+    delete_entry.grid(column=0, row=1, columnspan=2, pady=5)
+
+    style.configure('Delete.TButton', background="red", foreground='#ffffff', font=('Arial', 12))
+    button = ttk.Button(frame, text="Delete Habit", command=delete_habit, style='Delete.TButton')
+    button.grid(column=0, row=2, columnspan=2, pady=10)
+    
+
 def delete_habit():
     pass
-
 
 if __name__ == "__main__":
     main()
