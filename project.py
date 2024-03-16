@@ -3,8 +3,6 @@ from tkinter import ttk
 from csv import DictWriter, DictReader
 from datetime import date
 import pandas as pd
-from customtkinter import *
-from PIL import Image
 
 class Habit():
 
@@ -35,11 +33,16 @@ class Habit():
 
 
 habits_objects_list = []
-gui = CTk()
+gui = Tk()
 gui.title("Habit Tracker")
-gui.geometry("800x800")  # Set window size using geometry
-set_appearance_mode("dark")  # Use dark theme
-set_default_color_theme("blue")
+gui.minsize(800, 800)
+
+style = ttk.Style()
+style.configure('TFrame', background='#f0f0f0')
+style.configure('TLabel', background='#f0f0f0', font=('Arial', 12))
+style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
+style.configure('TCheckbutton', background='#f0f0f0', font=('Arial', 12))
+
 
 def main():
     get_habits()
@@ -48,68 +51,46 @@ def main():
 
 def create_gui() -> None:
 
-    # Main frame with rounded corners
-    frame = CTkFrame(master=gui, fg_color="#101720", corner_radius=10)
-    frame.grid(column=0, row=0, sticky="nsew")
+    frame = ttk.Frame(gui, padding="20", style='TFrame')
+    frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
+    gui.columnconfigure(0, weight=1)
+    gui.rowconfigure(0, weight=1)
 
-    gui.grid_columnconfigure(0, weight=1)
-    gui.grid_rowconfigure(0, weight=1)
-
-    habit_image = CTkImage(light_image=Image.open("/home/azfar/CS50P-Final-Project/Habit Tracker Crop.png"), 
-                           dark_image=Image.open("/home/azfar/CS50P-Final-Project/Habit Tracker Crop.png"), 
-                           size=(360, 168))
-    image_label = CTkLabel(master=frame, image=habit_image, text="")
-    image_label.grid(column=0, row=0, columnspan=2)
-
-
-    # Today's label
     today = get_weekday()
-    day_label = CTkLabel(master=frame, text=today, font=("Arial", 30))
-    day_label.grid(column=0, row=1, columnspan=2, padx=10, pady=10)
+    day_label = ttk.Label(frame, text=today, style='TLabel')
+    day_label.grid(column=0, row=0, columnspan=2, pady=10)
 
-    # Habit and Checkbox labels
-    habit_label = CTkLabel(master=frame, text="Habit", font=("Arial", 25))
-    habit_label.grid(column=0, row=2, padx=10, pady=5)
+    habit_label = ttk.Label(frame, text="Habit", style='TLabel')
+    habit_label.grid(column=0, row=1, padx=10)
 
-    checkbox_label = CTkLabel(master=frame, text="Check", font=("Arial", 25))
-    checkbox_label.grid(column=1, row=3, padx=10, pady=5)
+    checkbox_label = ttk.Label(frame, text="Check", style='TLabel')
+    checkbox_label.grid(column=1, row=1, padx=10)
 
-    row_counter = 3  # Track the current row for habit entries
+    z = 2
 
-    # Iterate through habits and display them with checkboxes
     for i, object in enumerate(habits_objects_list):
+
         if today in object.days:
             object_name = object.name
 
-            habit_name_label = CTkLabel(master=frame, text=object_name, font=("Arial", 20))
-            habit_name_label.grid(column=0, row=row_counter, padx=10, pady=5)
+            habit_name_label = ttk.Label(frame, text=object_name, style='TLabel')
+            habit_name_label.grid(column=0, row=i+2, padx=10, pady=5)
 
-            checkbox = CTkCheckBox(
-                master=frame,
-                text="",  # Consider adding checkbox text for clarity
-                onvalue=1,
-                offvalue=0,
-                variable=object.completed_today,
-                command=object.check,
-            )
-            checkbox.grid(column=1, row=row_counter, padx=10, pady=5)
+            checkbox = ttk.Checkbutton(frame, onvalue=1, offvalue=0, variable=object.completed_today, command=object.check, style='TCheckbutton')
+            checkbox.grid(column=1, row=i+2, padx=10, pady=5)
 
-            row_counter += 1  # Increment row for the next habit
+            z += 1
 
-    # Buttons with custom styles
-    add_habit_button = CTkButton(master=frame, text="Add Habit", command=add_habit_gui)
-    add_habit_button.configure(width=200, height=40)
-    add_habit_button.grid(column=0, row=row_counter, columnspan=2, padx=10, pady=10)
+    button = ttk.Button(frame, text="Add Habit", command=add_habit_gui, style='TButton')
+    button.grid(column=0, row=z+2, columnspan=2, pady=10)
 
-    details_button = CTkButton(master=frame, text="Habit Details", command=habit_details_gui)
-    details_button.configure(width=200, height=40)
-    details_button.grid(column=0, row=row_counter + 1, columnspan=2, padx=10, pady=10)
+    button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui)
+    button2.grid(column=0, row=z+3, columnspan=2, pady=10)
 
-    # Adjust row weights for dynamic content
-    for i in range(row_counter + 2):
+
+    for i in range(z+3):
         frame.rowconfigure(i, weight=1)
 
-    # Adjust column weights for equal spacing
     for i in range(2):
         frame.columnconfigure(i, weight=1)
 
