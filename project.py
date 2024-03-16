@@ -1,6 +1,5 @@
 from tkinter import *
-from tkinter import ttk
-from tkinter import font
+from tkinter import ttk, messagebox
 from csv import DictWriter, DictReader
 from datetime import date
 import pandas as pd
@@ -141,6 +140,10 @@ def create_habit() -> None:
             fieldnames = ["name", "days", "streak", "start_date"]
             writer = DictWriter(file, fieldnames=fieldnames)
             writer.writerow(habit)
+
+        messagebox.showinfo(message="Habit Added Succesfully")
+        habit_entry.delete("0", "end")
+        days_listbox.selection_clear("0", "end")
     except: 
         pass
     
@@ -186,6 +189,7 @@ def add_habit_gui() -> None:
     label1 = ttk.Label(frame, text="Name", padding=10, style='TLabel')
     label1.grid(column=0, row=0, columnspan=2)
 
+    global habit_entry
     habit_entry = ttk.Entry(frame, textvariable=habit_name)
     habit_entry.grid(column=0, row=1, columnspan=2, pady=5)
 
@@ -202,6 +206,7 @@ def add_habit_gui() -> None:
 
     button = ttk.Button(frame, text="Add Habit", command=create_habit, style='TButton')
     button.grid(column=0, row=4, columnspan=2, pady=10)
+
 
     for i in range(4):
         frame.rowconfigure(i, weight=1)
