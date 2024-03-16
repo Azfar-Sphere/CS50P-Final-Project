@@ -43,13 +43,12 @@ gui.title("Habit Tracker")
 gui.minsize(800, 800)
 
 style = ttk.Style()
-style.configure('TFrame', background='grey')
-style.configure('Day.TLabel', background="grey", font=("Courier", 40), foreground="blue")
-style.configure('TLabel', background='#f0f0f0', font=('Arial', 12))
+color = generate_random_color()
+style.configure('TFrame', background=color)
+style.configure('Day.TLabel', background=color, font=("Courier", 40), foreground="blue")
+style.configure('TLabel', background=color, font=('Arial', 12))
 style.configure('TButton', background='#4caf50', foreground='#ffffff', font=('Arial', 12))
-style.configure('TCheckbutton', background='#f0f0f0', font=('Arial', 12))
 
-print(font.names())
 
 def main():
     get_habits()
@@ -80,9 +79,11 @@ def create_gui() -> None:
             habit_frame = ttk.Frame(frame, style="Habit.TFrame")
             habit_frame.grid(column=0, columnspan=2, row=z)
 
-            habit_name_label = ttk.Label(habit_frame, text=object_name)
+            style.configure('Habit.TLabel', background=color, font=('Arial', 20))
+            habit_name_label = ttk.Label(habit_frame, text=object_name, style="Habit.TLabel")
             habit_name_label.grid(column=0, row=0, padx=20, pady=5)
 
+            style.configure('TCheckbutton', background=color, size=30)
             checkbox = ttk.Checkbutton(habit_frame, onvalue=1, offvalue=0, variable=object.completed_today, command=object.check)
             checkbox.grid(column=1, row=0, padx=20, pady=5)
 
