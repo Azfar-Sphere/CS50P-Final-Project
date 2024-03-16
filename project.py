@@ -92,7 +92,8 @@ def create_gui() -> None:
     button = ttk.Button(frame, text="Add Habit", command=add_habit_gui, style='TButton')
     button.grid(column=0, row=z+2, columnspan=2, pady=10)
 
-    button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui)
+    style.configure('Details.TButton', background=generate_random_color(), foreground='#ffffff', font=('Arial', 12))
+    button2 = ttk.Button(frame, text="Habit Details", command=habit_details_gui, style="Details.TButton")
     button2.grid(column=0, row=z+3, columnspan=2, pady=10)
 
 
