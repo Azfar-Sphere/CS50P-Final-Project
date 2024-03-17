@@ -275,6 +275,7 @@ def delete_habit_gui():
     frame = ttk.Frame(delete_gui, padding="20", style="TFrame")
     frame.grid(column=0, row=0, sticky=(N, S, E, W)) 
 
+    style.configure('TLabel', background="white", font=('Arial', 12))
     label1 = ttk.Label(frame, text="Name of Habit to Delete", padding=10, style='TLabel')
     label1.grid(column=0, row=0, columnspan=2)
 
@@ -291,7 +292,7 @@ def delete_habit_gui():
     
 
 def delete_habit():
-    pass
+    messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation")
 
 if __name__ == "__main__":
     main()
