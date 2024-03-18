@@ -292,7 +292,23 @@ def delete_habit_gui():
     
 
 def delete_habit():
-    messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation")
+    style.configure('TLabel', font=('Arial', 12))
+    if messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation"):
+        try:
+            df = pd.read_csv("habits.csv")
+            index = df[df["name"] == delete_name.get()].index
+            print(index)
+            df = df.drop(index)
+            df.to_csv("habits.csv", index=False)
+
+            messagebox.showinfo(message="Habit Deleted")
+            get_habits()
+            create_gui()
+
+        except:
+            messagebox.showinfo(message="Unable to find Habit")
+    else:
+        pass
 
 if __name__ == "__main__":
     main()
