@@ -296,16 +296,22 @@ def delete_habit():
     if messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation"):
         try:
             df = pd.read_csv("habits.csv")
-            index = df[df["name"] == delete_name.get()].index
-            print(index)
-            df = df.drop(index)
-            df.to_csv("habits.csv", index=False)
+            row = df[df["name"] == delete_name.get()]
+            
+            if not row.empty:
+            
+                index = row.index
+                
+                df = df.drop(index)
+                df.to_csv("habits.csv", index=False)
 
-            messagebox.showinfo(message="Habit Deleted")
-            get_habits()
-            create_gui()
+                messagebox.showinfo(message="Habit Deleted")
+                get_habits()
+                create_gui()
+            else:
+                raise LookupError
 
-        except:
+        except LookupError:
             messagebox.showinfo(message="Unable to find Habit")
     else:
         pass
