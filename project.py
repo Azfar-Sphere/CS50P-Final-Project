@@ -22,7 +22,7 @@ class Habit():
         self.start_date = start_date or date.today()
         self.completed_today = BooleanVar(value=False)
 
-    def check(self):
+    def check(self) -> None:
         if self.completed_today.get() == 1:
             self.streak = int(self.streak)
             self.streak += 1
@@ -268,7 +268,7 @@ def habit_details_gui() -> None:
     for i in range(4):
         frame.columnconfigure(i, weight=1)
 
-def delete_habit_gui():
+def delete_habit_gui() -> None:
     delete_gui = Toplevel(gui)
     delete_gui.title("Delete Habit")
 
@@ -291,7 +291,7 @@ def delete_habit_gui():
     button.grid(column=0, row=2, columnspan=2, pady=10)
     
 
-def delete_habit():
+def delete_habit() -> None:
     style.configure('TLabel', font=('Arial', 12))
     if messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation"):
         try:
