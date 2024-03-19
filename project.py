@@ -151,7 +151,9 @@ def create_habit(**test) -> None:
         elif test:
             if not test["name"]:
                 raise NameError
-
+            if not test["days"]:
+                raise IndexError
+            
             habit = {"name": test["name"], "days": test["days"], "streak": 0, "start_date": date.today()}
             with open("test_habits.csv", "a") as file:
                 fieldnames = ["name", "days", "streak", "start_date"]
@@ -173,11 +175,13 @@ def create_habit(**test) -> None:
             messagebox.showinfo(message="Please add a Name!")
         if test:
             return 0
-        
+        pass
     except IndexError:
         if not test:
             messagebox.showinfo(message="Please Choose a Day!")
-
+        if test:
+            return 0
+        pass
     except: 
         pass
 
