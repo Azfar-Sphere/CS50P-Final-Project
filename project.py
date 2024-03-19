@@ -109,8 +109,10 @@ def create_gui() -> None:
 
     gui.mainloop()
 
-def get_weekday() -> str:
+def get_weekday(**test) -> str:
     today = (str(date.today()).split("-"))
+    if test:
+        today = test["date"]
     today = [int(integer) for integer in today]
     today = date(*today).weekday()
 
@@ -328,7 +330,7 @@ def delete_habit_gui() -> None:
     button.grid(column=0, row=2, columnspan=2, pady=10)
     
 
-def delete_habit(**test) -> None:
+def delete_habit(**test) -> None: # Returns Errors if Wrong
     confirm = 0
     if not test:
         style.configure('TLabel', font=('Arial', 12))

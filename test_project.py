@@ -63,3 +63,9 @@ def test_delete_habit():
     assert row.empty == True
 
     assert delete_habit(name="Working") == LookupError
+
+
+def test_get_weekday():
+    assert get_weekday(date = ["2024", "03","19"]) == "Tuesday"
+    assert get_weekday(date = ["2024", "01","10"]) == "Wednesday"
+    assert get_weekday(date = ["2023", "12","25"]) == "Monday"
