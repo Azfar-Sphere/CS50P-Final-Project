@@ -132,9 +132,9 @@ def get_weekday() -> str:
 
 
 
-def create_habit(**kwargs) -> None:
+def create_habit(**test) -> None:
     try:
-        if not kwargs:
+        if not test:
             index_days = days_listbox.curselection()
             days_selected  = [days_list[index_day] for index_day in index_days]
             days_selected = ",".join(days_selected)
@@ -142,14 +142,14 @@ def create_habit(**kwargs) -> None:
             name = habit_name.get()
             habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
         
-        elif kwargs:
-            habit = {"name": kwargs["name"], "days": kwargs["days"], "streak": 0, "start_date": date.today()}
+        elif test:
+            habit = {"name": test["name"], "days": test["days"], "streak": 0, "start_date": date.today()}
             with open("test_habits.csv", "a") as file:
                 fieldnames = ["name", "days", "streak", "start_date"]
                 writer = DictWriter(file, fieldnames=fieldnames)
                 writer.writerow(habit)
 
-        if not kwargs:
+        if not test:
             with open("habits.csv", "a") as file:
                 fieldnames = ["name", "days", "streak", "start_date"]
                 writer = DictWriter(file, fieldnames=fieldnames)
@@ -162,13 +162,13 @@ def create_habit(**kwargs) -> None:
     except: 
         pass
 
-    if not kwargs:
+    if not test:
         get_habits()
         print(habits_objects_list)
         create_gui()
 
 
-def get_habits(**kwargs) -> None:
+def get_habits(**test) -> None:
     global habits_objects_list
     if habits_objects_list:
         habits_objects_list = []
@@ -301,13 +301,18 @@ def delete_habit_gui() -> None:
     button.grid(column=0, row=2, columnspan=2, pady=10)
     
 
-def delete_habit() -> None:
+def delete_habit(**test) -> None:
     style.configure('TLabel', font=('Arial', 12))
-    if messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation"):
+    if messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation") or test:
         try:
-            df = pd.read_csv("habits.csv")
-            row = df[df["name"] == delete_name.get()]
-            
+            if not test:
+                df = pd.read_csv("habits.csv")
+                row = df[df["name"] == delete_name.get()]
+
+            elif test:
+                df = pd.read_csv("test_habits.csv")
+                row = df[df["name"] == test["name"]]
+
             if not row.empty:
             
                 index = row.index
