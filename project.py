@@ -136,6 +136,9 @@ def create_habit(**test) -> None:
     try:
         if not test:
             index_days = days_listbox.curselection()
+            if not index_days:
+                raise IndexError
+            
             days_selected  = [days_list[index_day] for index_day in index_days]
             days_selected = ",".join(days_selected)
 
@@ -146,6 +149,9 @@ def create_habit(**test) -> None:
             habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
         
         elif test:
+            if not test["name"]:
+                raise NameError
+
             habit = {"name": test["name"], "days": test["days"], "streak": 0, "start_date": date.today()}
             with open("test_habits.csv", "a") as file:
                 fieldnames = ["name", "days", "streak", "start_date"]
@@ -163,14 +169,20 @@ def create_habit(**test) -> None:
             messagebox.showinfo(message="Habit Added Succesfully")
 
     except NameError:
-        messagebox.showinfo(message="Please add a Name!")
-        pass
+        if not test:
+            messagebox.showinfo(message="Please add a Name!")
+        if test:
+            return 0
+        
+    except IndexError:
+        if not test:
+            messagebox.showinfo(message="Please Choose a Day!")
+
     except: 
         pass
 
     if not test:
         get_habits()
-        print(habits_objects_list)
         create_gui()
 
 

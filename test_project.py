@@ -37,6 +37,9 @@ def test_create_habit():
     row = f'{row["name"]},{row["days"]}'
     assert row == f'Running,Tuesday'
 
+    assert create_habit(name="", days="Sunday") == 0
+
+    
 def test_get_habits():
     get_habits(test=True)
     assert len(habits_objects_list) == 3
