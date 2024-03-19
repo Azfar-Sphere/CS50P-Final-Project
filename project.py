@@ -140,6 +140,9 @@ def create_habit(**test) -> None:
             days_selected = ",".join(days_selected)
 
             name = habit_name.get()
+            if not name:
+                raise NameError
+            
             habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
         
         elif test:
@@ -159,6 +162,9 @@ def create_habit(**test) -> None:
             days_listbox.selection_clear("0", "end")
             messagebox.showinfo(message="Habit Added Succesfully")
 
+    except NameError:
+        messagebox.showinfo(message="Please add a Name!")
+        pass
     except: 
         pass
 
