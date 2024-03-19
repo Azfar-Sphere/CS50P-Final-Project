@@ -1,5 +1,5 @@
 import pytest
-from project import Habit, get_weekday, create_habit, delete_habit
+from project import Habit, get_weekday, create_habit, delete_habit, get_habits, habits_objects_list
 from datetime import date
 import pandas as pd
 
@@ -36,6 +36,10 @@ def test_create_habit():
     row = df[df["name"] == "Running"][["name", "days"]].iloc[0]
     row = f'{row["name"]},{row["days"]}'
     assert row == f'Running,Tuesday'
+
+def test_get_habits():
+    get_habits(test=True)
+    assert len(habits_objects_list) == 3
 
 def test_delete_habit():
     delete_habit(name="Swimming")

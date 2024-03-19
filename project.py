@@ -175,13 +175,23 @@ def get_habits(**test) -> None:
     try:
         habit_details_list = []
 
-        with open("habits.csv") as file:
+        if not test:
+            with open("habits.csv") as file:
+        
+                fieldnames = ["name", "days", "streak", "start_date"]
+                reader = DictReader(file, fieldnames=fieldnames)
+                next(reader)
+                for row in reader:
+                    habit_details_list.append(row)
 
-            fieldnames = ["name", "days", "streak", "start_date"]
-            reader = DictReader(file, fieldnames=fieldnames)
-            next(reader)
-            for row in reader:
-                habit_details_list.append(row)
+        elif test:
+            with open("test_habits.csv") as file:
+            
+                fieldnames = ["name", "days", "streak", "start_date"]
+                reader = DictReader(file, fieldnames=fieldnames)
+                next(reader)
+                for row in reader:
+                    habit_details_list.append(row)
         
         for item in habit_details_list:
             habits_objects_list.append(Habit(**item))
@@ -190,8 +200,6 @@ def get_habits(**test) -> None:
     except:
         pass 
 
-    if gui:
-        gui.update()
 
 def add_habit_gui() -> None:
 
