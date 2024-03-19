@@ -302,9 +302,13 @@ def delete_habit_gui() -> None:
     
 
 def delete_habit(**test) -> None:
-    style.configure('TLabel', font=('Arial', 12))
-    if messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation") or test:
+    confirm = 0
+    if not test:
+        style.configure('TLabel', font=('Arial', 12))
+        confirm = messagebox.askyesno(message="Are you sure you want to delete this Habit?", icon='question', title="confirmation")
+    if confirm or test:
         try:
+            row = None
             if not test:
                 df = pd.read_csv("habits.csv")
                 row = df[df["name"] == delete_name.get()]
@@ -318,16 +322,22 @@ def delete_habit(**test) -> None:
                 index = row.index
                 
                 df = df.drop(index)
-                df.to_csv("habits.csv", index=False)
 
-                messagebox.showinfo(message="Habit Deleted")
-                get_habits()
-                create_gui()
+                if not test:
+                    df.to_csv("habits.csv", index=False)
+                    messagebox.showinfo(message="Habit Deleted")
+                    get_habits()
+                    create_gui()
+                
+                if test:
+                    df.to_csv("test_habits.csv", index=False)
+
             else:
                 raise LookupError
 
         except LookupError:
-            messagebox.showinfo(message="Unable to find Habit")
+            if test:
+                messagebox.showinfo(message="Unable to find Habit")
     else:
         pass
 
