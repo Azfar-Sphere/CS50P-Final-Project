@@ -132,33 +132,43 @@ def get_weekday() -> str:
 
 
 
-def create_habit() -> None:
+def create_habit(**kwargs) -> None:
     try:
-        index_days = days_listbox.curselection()
-        days_selected  = [days_list[index_day] for index_day in index_days]
-        days_selected = ",".join(days_selected)
+        if not kwargs:
+            index_days = days_listbox.curselection()
+            days_selected  = [days_list[index_day] for index_day in index_days]
+            days_selected = ",".join(days_selected)
 
-        name = habit_name.get()
-        habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
+            name = habit_name.get()
+            habit = {"name": name, "days": days_selected, "streak": 0, "start_date": date.today()}
         
-        with open("habits.csv", "a") as file:
-            fieldnames = ["name", "days", "streak", "start_date"]
-            writer = DictWriter(file, fieldnames=fieldnames)
-            writer.writerow(habit)
+        elif kwargs:
+            habit = {"name": kwargs["name"], "days": kwargs["days"], "streak": 0, "start_date": date.today()}
+            with open("test_habits.csv", "a") as file:
+                fieldnames = ["name", "days", "streak", "start_date"]
+                writer = DictWriter(file, fieldnames=fieldnames)
+                writer.writerow(habit)
 
-        habit_entry.delete("0", "end")
-        days_listbox.selection_clear("0", "end")
-        messagebox.showinfo(message="Habit Added Succesfully")
+        if not kwargs:
+            with open("habits.csv", "a") as file:
+                fieldnames = ["name", "days", "streak", "start_date"]
+                writer = DictWriter(file, fieldnames=fieldnames)
+                writer.writerow(habit)
+
+            habit_entry.delete("0", "end")
+            days_listbox.selection_clear("0", "end")
+            messagebox.showinfo(message="Habit Added Succesfully")
 
     except: 
         pass
-    
-    get_habits()
-    print(habits_objects_list)
-    create_gui()
+
+    if not kwargs:
+        get_habits()
+        print(habits_objects_list)
+        create_gui()
 
 
-def get_habits() -> None:
+def get_habits(**kwargs) -> None:
     global habits_objects_list
     if habits_objects_list:
         habits_objects_list = []
