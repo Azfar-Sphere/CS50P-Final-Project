@@ -37,8 +37,8 @@ def test_create_habit():
     row = f'{row["name"]},{row["days"]}'
     assert row == f'Running,Tuesday'
 
-    assert create_habit(name="", days="Sunday") == 0
-    assert create_habit(name="Working Out", days="") == 0
+    assert create_habit(name="", days="Sunday") == NameError
+    assert create_habit(name="Working Out", days="") == IndexError
 
 
 def test_get_habits():
@@ -62,3 +62,4 @@ def test_delete_habit():
     row = df[df["name"] == "Running"][["name", "days"]]
     assert row.empty == True
 
+    assert delete_habit(name="Working") == LookupError

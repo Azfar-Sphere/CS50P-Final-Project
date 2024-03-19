@@ -132,7 +132,7 @@ def get_weekday() -> str:
 
 
 
-def create_habit(**test) -> None:
+def create_habit(**test) -> None: # Returns Errors if wrong
     try:
         if not test:
             index_days = days_listbox.curselection()
@@ -173,15 +173,12 @@ def create_habit(**test) -> None:
     except NameError:
         if not test:
             messagebox.showinfo(message="Please add a Name!")
-        if test:
-            return 0
-        pass
+        return NameError
+        
     except IndexError:
         if not test:
             messagebox.showinfo(message="Please Choose a Day!")
-        if test:
-            return 0
-        pass
+        return IndexError
     except: 
         pass
 
@@ -362,12 +359,13 @@ def delete_habit(**test) -> None:
                 if test:
                     df.to_csv("test_habits.csv", index=False)
 
-            else:
+            elif row.empty:
                 raise LookupError
 
         except LookupError:
-            if test:
+            if not test:
                 messagebox.showinfo(message="Unable to find Habit")
+            return LookupError
     else:
         pass
 
