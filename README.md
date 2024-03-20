@@ -1,38 +1,22 @@
   # Habit Tracker
   ### Video Demo:  <URL HERE>
-  ### Description:
-    Hi! What I wanted to make was a habit tracker app in python and I did just that! Using tkinter in python for my GUI, 
-    I created a very simple and very colorful habit tracker that you can add your habits for each day. 
-    The color of the gui and the buttons are also random and can be any one from the colors in the colorlist.py file.
-    #### Functionality:
-    When you open the project.py file, you'll be greeted first by the declaration of the Habit Class. 
-    This class intializes the Habit Objects, stores its details and handles other functionality such
-    as updating the habit.
+  ### Description
+  Upon opening the project.py file, the user is introduced to the Habit class declaration. This class initializes habit objects, storing their details and handling functions such as updating habits.
 
-    The main function is really simple! It is only two lines of code, calling the get_habits function,
-    which retrieves all the habits preivously stored in the CSV file. Then, the create_gui function
-    draws the gui.
+The main function orchestrates the process, primarily comprising two functions:
 
-    But, what does each function do? 
+get_habits(): Retrieves previously stored habits from a CSV file, creating Habit objects for each habit and storing them in the habits_objects_list to ensure persistence across program runs.
+create_gui(): Constructs the GUI, displaying habits to be done for the current day. It utilizes the get_weekday() function to determine the current weekday and dynamically creates GUI elements based on stored habit data.
+The create_habit() function facilitates habit addition by capturing user input, validating it, and storing the habit in the CSV file. If invoked without arguments, it interacts with the GUI elements. Conversely, when invoked with test arguments, it performs batch testing.
 
-    The create_gui function gets the current weekday from the get_weekday function,
-    then using the habits in the habit_objects_list, it creates the GUI with the 
-    habits to do for today.
+Similarly, functions like add_habit_gui(), habit_details_gui(), and delete_habit_gui() create GUI elements for adding habits, displaying habit details, and deleting habits, respectively.
 
-    The get_weekday function uses the date module to figure out which day it is.
-
-    The create_habit function uses the entrybox in the habit gui to retrieve the habit name
-    and then create the habit and store it in a csv file.
-
-    The get_habits function retrieves all the previously stored habits in the csv file, creates Habit Objects
-    for all said habits and then stores them in the habit_objects_list every time the program is run. This ensure
-    all previously added habits are fetched.
-
-    The add_habit_gui creates the popup gui that is used to add a habit. 
-
-    Similarly, the habit_details_gui creates the gui to display the details of each habit.
-
-    Similarly aswell, the delete_habit_gui creates the gui to delete a habit.
-
-    The delete_habit function takes in the name of the habit entered in the delete habit GUI and deletes
-    the habit from the CSV permanently.
+Detailed Functionality:
+create_gui(): Dynamically creates GUI elements based on stored habit data for the current day.
+get_weekday(): Determines the current weekday using the date module.
+create_habit(): Handles habit addition, fetching habit name and days from GUI elements or test arguments and storing them in the CSV file.
+get_habits(): Retrieves previously stored habits from CSV files, creating Habit objects for each habit.
+add_habit_gui(): Creates a pop-up GUI for adding a habit.
+habit_details_gui(): Creates a GUI to display habit details.
+delete_habit_gui(): Creates a GUI for deleting a habit.
+delete_habit(): Handles habit deletion by prompting for confirmation, fetching habit details, and updating the CSV file.
