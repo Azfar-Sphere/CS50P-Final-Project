@@ -30,3 +30,9 @@ habit_details_gui(): Creates a GUI to display habit details.
 delete_habit_gui(): Creates a GUI for deleting a habit.
 
 delete_habit(): Handles habit deletion by prompting for confirmation, fetching habit details, and updating the CSV file.
+
+### Testing:
+
+Some functions in the codebase include an optional argument named test. This feature enables the passing of custom arguments to functions directly from the file test_project.py. Typically, functions interact with variables obtained from GUI elements. However, **test serves as a backdoor for testing functions independently of the GUI. This capability eliminates the necessity of fetching values from entry boxes or list boxes during testing, streamlining the testing process.
+
+The test_project.py file initiates by creating a fixture, a habit object, utilized in subsequent tests. It comprehensively tests instance functions within the Habit class and other relevant functions.
