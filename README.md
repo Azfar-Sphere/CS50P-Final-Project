@@ -1,6 +1,10 @@
   # Habit Tracker
   ### Video Demo:  <URL HERE>
   ### Description:
+The decision to create a habit tracker stemmed from my personal experience with using a paper-based habit tracker. While effective, I found it more convenient to use a digital platform for better accessibility and ease of use.
+
+I aimed for simplicity and vibrancy in the design, opting for a clean and straightforward interface that prioritizes functionality. One unique aspect is the random selection of background and button colors each time the habit tracker is launched, with the "generate_random_color" function picking a random color from a HUGE list of colors, enhancing its visual appeal and keeping the interface dynamic and refreshing.
+
   Upon opening the project.py file, the user is introduced to the Habit class declaration. This class initializes habit objects, storing their details and handling functions such as updating habits.
 
 The main function orchestrates the process, primarily comprising two functions:
