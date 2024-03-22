@@ -1,5 +1,5 @@
   # Habit Tracker
-  ### Video Demo:  <URL HERE>
+  ### Video Demo:  https://www.youtube.com/watch?v=q0fr_kow86M
   ### Description:
 The decision to create a habit tracker stemmed from my personal experience with using a paper-based habit tracker. While effective, I found it more convenient to use a digital platform for better accessibility and ease of use.
 
